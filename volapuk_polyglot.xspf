@@ -1,0 +1,31 @@
+<playlist version="1" xmlns="http://xspf.org/ns/0/">
+
+    <title>Volapuk - Polyglot</title>
+    <info>http://undarwe.ru/music/2009/03/08/volapuk_polyglot.html</info>
+    <location>http://undarwe.ru/music/2009/03/08/volapuk_polyglot.xspf</location>
+
+    <trackList>
+        <track>
+            <location>http://undarwe.ru/mp3/volapuk - polyglot/03 - Voila Puk</location>
+            <title>Voila Puk</title>
+            <creator>Volapuk</creator>
+            <album>Polyglot</album>
+            <trackNum>03</trackNum>
+        </track>
+        <track>
+            <location>http://undarwe.ru/mp3/volapuk - polyglot/09 - Des Liens Ivisispanles</location>
+            <title>Des Liens Ivisispanles</title>
+            <creator>Volapuk</creator>
+            <album>Polyglot</album>
+            <trackNum>09</trackNum>
+        </track>
+        <track>
+            <location>http://undarwe.ru/mp3/volapuk - polyglot/13 - L'Oeuf D' Apuk</location>
+            <title>L'Oeuf D' Apuk</title>
+            <creator>Volapuk</creator>
+            <album>Polyglot</album>
+            <trackNum>13</trackNum>
+        </track>
+    </trackList>
+</playlist>
+

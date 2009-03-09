@@ -1,0 +1,61 @@
+#!/usr/bin/perl -w
+
+use strict;
+
+use Block;
+use Block::p;
+use Block::ul;
+use Block::xspf;
+
+my $m;
+{
+    local $/;
+    $m = <>;
+}
+
+$m .= "\n\n";
+$m =~ s{\r\n}{\n}g;
+$m =~ s{\r}{\n}g;
+$m =~ s{^\s+$}{}mg;
+$m =~ s{\n{3,}}{\n\n}mg;
+
+my @blocks = get_blocks($m);
+
+my $last;
+for my $b (@blocks) {
+    if ($last && $b->type() ne $last->type()) {
+        $last->close();
+        $last = undef;
+        $b->open();
+    }
+    $b->print();
+    $last = $b;
+}
+
+sub get_blocks {
+    my ($m) = @_;
+
+    my @blocks = ();
+    for my $block (split(/\n\n/, $m)) {
+        if ($block =~ m{^---.*?---$}sm) {
+            next;
+        }
+        if ($block =~ m{^    >>>\s+(.*?\.xspf)\s*$}sm) {
+            push(@blocks, new Block::xspf($1));
+            next;
+        }
+
+        if ($block =~ m{^  \* }) {
+            $block =~ s{^  \* }{};
+            $block =~ s{^    }{}gsm;
+            push(@blocks, new Block::ul($block));
+            next;
+        }
+
+        push(@blocks, new Block::p($block));
+    }
+    push(@blocks, new Block('') );
+
+    return @blocks;
+}
+
