@@ -1,0 +1,204 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: verdana, sans-serif;
+    font-size: 80%;
+    color: #000;
+    background-color: #f8f8f8;
+}
+a:link, a:visited {
+    color: #00a8c6;
+    text-decoration: underline;
+}
+a:hover {
+    text-decoration: none;
+}
+b {
+    color: #9bd020;
+    font-weight: bold;
+}
+img {
+    padding: 5px;
+    border: 1px solid #ccc;
+}
+
+/* ------------------------------------------------------------------------- */
+
+.left {
+    position: absolute;
+    width: 75%;
+    background-color: #fff;
+    border-right: 1px dashed #ccc;
+}
+.right {
+    position: absolute;
+    width: 25%;
+    left: 75%;
+}
+* html .g-line {
+    zoom: 1;
+   _height: 0;
+}
+.g-line:after {
+    display: block;
+    clear: both;
+    height: 0;
+    content: " ";
+}
+
+
+/* ------------------------------------------------------------------------- */
+
+.b-concerts {
+    padding: 0.5em 0 1em 30px;
+    background-color: #333;
+    border-bottom: 3px solid #666;
+}
+.b-concerts h2 {
+    float: right;
+    font-size: 110%;
+    color: #eee;
+    margin: 0 30px;
+}
+.b-concerts ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.b-concerts ul li {
+    width: 12em;
+    float: left;
+    margin-right: 1em;;
+}
+.b-concerts div {
+    font-size: 80%;
+    color: #999;
+    margin-top: 0.25em;
+}
+
+/* ------------------------------------------------------------------------- */
+
+.b-posts {
+    margin: 1em 30px 0;
+}
+.post {
+    border-bottom: 1px dashed #ccc;
+    padding-bottom: 2em;
+    margin-bottom: 3em;
+}
+.post h2 {
+    font-size: 140%;
+    margin-bottom: 0.25em;
+    color: #9bd020;
+}
+.post h2 a {
+    color: #9bd020;
+    text-decoration: none;
+}
+.post h2 a:hover {
+    text-decoration: underline;
+}
+.post .date {
+    font-size: 85%;
+    color: #999;
+}
+.post .tags {
+    font-size: 85%;
+}
+.post img {
+    float: right;
+    margin:  0 0 5px 5px;
+}
+.post .links {
+    list-style-type: square;
+    color: #ccc;
+}
+.post .links li {
+    margin-bottom: 0.5em;
+}
+.post .links div {
+    color: #000;
+    margin-top: 0;
+}
+.post .links h3 {
+    font-size: 100%;
+    margin-bottom: 0.25em;
+}
+
+/* ------------------------------------------------------------------------- */
+
+.b-player {
+    padding: 0;
+    margin: 1em 0;
+    width: 100%;
+}
+.b-player tr {
+    vertical-align: top;
+}
+.b-player td {
+    width: 100%;
+    font-size: 70%;
+    padding: 0 30px;
+}
+.b-player h3 {
+    font-size: 110%;
+    margin-top: 0;
+    margin-bottom: 0.25em;
+    color: #403B33;
+}
+.b-player ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.b-player span {
+    color: #ccc;
+}
+
+/* ------------------------------------------------------------------------- */
+
+.b-about {
+    font-size: 85%;
+    color: #666;
+    margin: 1em 20px 2em;
+}
+.b-about img {
+    width: 50px
+    height: 50px;
+    float: left;
+    margin:  3px 5px 5px 0;
+}
+.b-about .links {
+    margin-top: 1em;
+}
+.b-about .links h3 {
+    font-size: 120%;
+    margin-bottom: 0.5em;
+    color: #999;
+}
+.b-about .links ul {
+    list-style-type: square;
+    color: #999;
+    margin: 0;
+    padding: 0 0 0 2em;
+}
+.b-about .links ul li {
+    margin-bottom: 0.25em;
+}
+
+/* ------------------------------------------------------------------------- */
+
+.b-tags {
+    margin: 1em 20px 2em;
+    line-height: 150%;
+}
+.b-tags a {
+    margin-right: 0.5em;
+}
+.b-tags .s0 { font-size: 80%; }
+.b-tags .s1 { font-size: 90%; }
+.b-tags .s2 { font-size: 100%; }
+.b-tags .s3 { font-size: 110%; }
+.b-tags .s4 { font-size: 130%; }
+.b-tags .s5 { font-size: 150%; }
+
