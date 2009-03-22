@@ -1,0 +1,11 @@
+---
+tags:     avant-prog, volapuk
+title:    Volapuk / Slang!
+template: post
+---
+
+<<volapuk-slang.jpg>>
+Тут идет текст про Volapuk.
+
+    >>> ../../mp3/volapuk-slang/playlist.xspf
+
