@@ -3,7 +3,10 @@
     <title>[% post.title %]</title>
 </head>
 <body>
-    [% post.content %]
+
+<h1>[% post.title %]</h1>
+[% post.content %]
+
 </body>
 </html>
 

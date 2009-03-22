@@ -1,16 +1,26 @@
-#!/usr/bin/perl -w
+package Marklite;
 
 use strict;
 
 use Text::Markdown 'markdown';
 use Text::Typography 'typography';
 
-sub marklite {
-    my ($m) = @_;
+sub new {
+    my ($class, $params) = @_;
+    $params = $params || {};
 
-    $m =~ s{<<(.*?)>>}{ m_inline($1); }gsme;
-    $m =~ s{\[\[(.*?)\]\]}{ m_link($1); }gsme;
-    $m =~ s{^\s*>>>\s*(.*?)$}{ m_block($1); }gsme;
+    my $self = bless $params, $class;
+
+    return $self;
+}
+
+sub out {
+    my ($self) = @_;
+
+    my $m = $self->{marklite};
+    $m =~ s{<<(.*?)>>}{ $self->m_inline($1); }gsme;
+    $m =~ s{\[\[(.*?)\]\]}{ $self->m_link($1); }gsme;
+    $m =~ s{^\s*>>>\s*(.*?)$}{ $self->m_block($1); }gsme;
 
     return typography(markdown($m));
 }
@@ -18,15 +28,15 @@ sub marklite {
 ###############################################################################
 
 sub m_inline {
-    my ($m) = @_;
+    my ($self, $m) = @_;
 
-    if ($m =~ m{\.(jpg|png|gif)}) { return i_image($m); }
+    if ($m =~ m{\.(jpg|png|gif)$}) { return $self->i_image($m); }
 
     return "";
 }
 
 sub i_image {
-    my ($m) = @_;
+    my ($self, $m) = @_;
 
     return qq|<img src="$m"/>|;
 }
@@ -34,23 +44,23 @@ sub i_image {
 ###############################################################################
 
 sub m_block {
-    my ($m) = @_;
+    my ($self, $m) = @_;
 
-    if ($m =~ m{\.xspf}) { return b_xspf($m); }
+    if ($m =~ m{\.xspf}) { return $self->b_xspf($m); }
 
     return "";
 }
 
 sub b_xspf {
-    my ($m) = @_;
+    my ($self, $m) = @_;
 
-    return `xsltproc xspf2html.xsl $m`;
+    return `xsltproc xspf2html.xsl $self->{dir}/$m`;
 }
 
 ###############################################################################
 
 sub m_link {
-    my ($m) = @_;
+    my ($self, $m) = @_;
 
     if ($m =~ m{^(.*?)\s+->\s+(.*?)$}) {
         return qq|<a href="$2">$1</a>|;

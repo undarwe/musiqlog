@@ -1,11 +1,15 @@
 #!/usr/bin/perl -w
 
 use strict;
-use Marklite 'marklite';
+
+use Marklite;
 use Template;
+use Cwd 'abs_path';
+use File::Basename;
 
 my $file = shift;
 if (!(-e $file)) { exit; }
+my (undef, $dir) = fileparse(abs_path($file));
 
 my $F;
 open($F, $file);
@@ -19,13 +23,14 @@ close($F);
 $m =~ s{^---\n(.*?)\n---\n\n}{}sm;
 my $meta = $1;
 my %post;
-while ($meta =~ m{^(.*?):\s*(.*?)$}gsm) {
+while ($meta =~ m{^(.*?)\s*:\s*(.*?)\s*$}gsm) {
     $post{$1} = $2;
 }
-$post{content} = marklite($m);
+my $M = new Marklite({ marklite => $m, dir => $dir });
+$post{content} = $M->out();
 
 my $tt = Template->new({
-    INCLUDE_PATH => '_templates',
+    INCLUDE_PATH => 'templates',
 }) || die $Template::ERROR, "\n";
 
 $tt->process($post{template} . ".tt2", { 'post' => \%post });
