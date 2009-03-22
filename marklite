@@ -26,7 +26,7 @@ my %post;
 while ($meta =~ m{^(.*?)\s*:\s*(.*?)\s*$}gsm) {
     $post{$1} = $2;
 }
-my $M = new Marklite({ marklite => $m, dir => $dir });
+my $M = new Marklite({ marklite => $m });
 $post{content} = $M->out();
 $post{template} = $post{template} || 'default';
 

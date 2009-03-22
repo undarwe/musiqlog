@@ -1,8 +1,11 @@
 ---
-tags:     avant-prog, volapuk
-title:    Volapuk / Slang!
 template: post
+date: 23 марта 2009
+path: /2009/03/23/volapuk-slang.html
+title: Volapuk / Slang!
+tags: avant-prog, volapuk
 ---
+
 
 << volapuk-slang.jpg >>
 Тут идет текст про Volapuk.

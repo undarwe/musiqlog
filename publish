@@ -1,0 +1,70 @@
+#!/usr/bin/perl -w
+
+use strict;
+
+use File::Path;
+
+my @months = qw(января февраля марта апреля мая июня июля августа сентября октября ноября декабря);
+
+my $draft = shift;
+if (!(-d $draft)) { exit; }
+$draft =~ s{/$}{};
+
+my ($sec, $min, $hour, $day, $month, $year) = localtime;
+
+my $path = sprintf("posts/%04d/%02d/%02d", $year + 1900, $month + 1, $day);
+mkpath($path);
+
+`cp $draft/* $path`;
+
+my $DIR;
+opendir($DIR, $path);
+my @posts = grep(/\.txt$/, readdir($DIR));
+closedir($DIR);
+
+for my $post (@posts) {
+    my $F;
+    open($F, "$path/$post");
+    my $m;
+    {
+        local $/;
+        $m = <$F>;
+    }
+    close($F);
+
+    my $p = p_read($m);
+    $p->{meta}->{date} = sprintf("%02d %s %04d", $day, $months[$month], $year + 1900);
+    my $html = $post;
+    $html =~ s{\.txt$}{.html};
+    $p->{meta}->{path} = sprintf("/%04d/%02d/%02d/%s", $year + 1900, $month + 1, $day, $html);
+
+    open($F, ">$path/$post");
+    print $F p_write($p);
+    close($F);
+}
+
+sub p_read {
+    my ($m) = @_;
+
+    my $p = {};
+    $m =~ s{^---\n(.*?)\n---\n\n}{}sm;
+    my $metas = $1;
+    while ($metas =~ m{^\s*(.*?)\s*:\s*(.*?)\s*$}gsm) {
+        $p->{meta}->{$1} = $2;
+    }
+    $p->{content} = $m;
+
+    return $p;
+}
+
+sub p_write {
+    my ($m) = @_;
+
+    my $r = "---\n";
+    my $metas = $m->{meta};
+    for my $meta (keys %$metas) {
+        $r .= "$meta: $metas->{$meta}\n";
+    }
+    $r .= "---\n\n$m->{content}";
+}
+

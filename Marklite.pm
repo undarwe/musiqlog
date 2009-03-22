@@ -18,9 +18,9 @@ sub out {
     my ($self) = @_;
 
     my $m = $self->{marklite};
-    $m =~ s{<<(.*?)>>}{ $self->m_inline($1); }gsme;
+    $m =~ s{<<\s*(.*?)\s*>>}{ $self->m_inline($1); }gsme;
     $m =~ s{\[\[(.*?)\]\]}{ $self->m_link($1); }gsme;
-    $m =~ s{^\s*>>>\s*(.*?)$}{ $self->m_block($1); }gsme;
+    $m =~ s{^\s*>>>\s*(.*?)\s*$}{ $self->m_block($1); }gsme;
 
     return typography(markdown($m));
 }
@@ -54,7 +54,9 @@ sub m_block {
 sub b_xspf {
     my ($self, $m) = @_;
 
-    return `xsltproc xspf2html.xsl $self->{dir}/$m`;
+    $m =~ s{^/}{};
+
+    return `xsltproc xspf2html.xsl $m`;
 }
 
 ###############################################################################
