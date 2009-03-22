@@ -1,0 +1,63 @@
+#!/usr/bin/perl -w
+
+use strict;
+use utf8;
+use MP3::Tag;
+
+my $dir = shift;
+if (!(-d $dir)) { exit; }
+$dir =~ s{/$}{};
+
+my $DIR;
+opendir($DIR, $dir);
+my @files = grep(/\.mp3$/, readdir($DIR));
+closedir($DIR);
+
+if (!@files) { exit; }
+
+my %artists;
+my %albums;
+my @tracks = ();
+
+for my $file (sort @files) {
+    my $mp3 = MP3::Tag->new("$dir/$file");
+
+    my $track = $mp3->autoinfo();
+    $track->{file} = $file;
+    $track->{dir} = $dir;
+    push(@tracks, $track);
+
+    $artists{$track->{artist}}++;
+    $albums{$track->{album}}++;
+
+    $mp3->close();
+}
+
+my $artist = (keys %artists > 1) ? 'Various artists' : $tracks[0]->{artist};
+my $album = (keys %albums > 1) ? 'Various albums' : $tracks[0]->{album};
+
+open(F, ">$dir/playlist.xspf");
+print F <<XML;
+<playlist version="1" xmlns="http://xspf.org/ns/0/">
+
+    <title>$artist / $album</title>
+    <location>http://undarwe.ru/music/mp3/$dir/playlist.xspf</location>
+    <trackList>
+XML
+for my $track (@tracks) {
+    print F <<XML;
+        <track>
+            <location>$track->{file}</location>
+            <title>$track->{title}</title>
+            <creator>$track->{artist}</creator>
+            <album>$track->{album}</album>
+            <trackNum>$track->{track}</trackNum>
+        </track>
+XML
+}
+print F <<XML;
+    </trackList>
+</playlist>
+XML
+close(F);
+

@@ -1,0 +1,21 @@
+<playlist version="1" xmlns="http://xspf.org/ns/0/">
+
+    <title>Volapuk / Slang!</title>
+    <location>http://undarwe.ru/music/mp3/volapuk-slang/playlist.xspf</location>
+    <trackList>
+        <track>
+            <location>(01) Dunaj.mp3</location>
+            <title>Dunaj</title>
+            <creator>Volapuk</creator>
+            <album>Slang!</album>
+            <trackNum>01</trackNum>
+        </track>
+        <track>
+            <location>(02) Taragot.mp3</location>
+            <title>Taragot</title>
+            <creator>Volapuk</creator>
+            <album>Slang!</album>
+            <trackNum>02</trackNum>
+        </track>
+    </trackList>
+</playlist>
