@@ -28,6 +28,7 @@ while ($meta =~ m{^(.*?)\s*:\s*(.*?)\s*$}gsm) {
 }
 my $M = new Marklite({ marklite => $m, dir => $dir });
 $post{content} = $M->out();
+$post{template} = $post{template} || 'default';
 
 my $tt = Template->new({
     INCLUDE_PATH => 'templates',
