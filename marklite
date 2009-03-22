@@ -1,0 +1,16 @@
+#!/usr/bin/perl -w
+
+use strict;
+use Marklite 'marklite';
+
+my $m;
+{
+    local $/;
+    $m = <>;
+}
+
+# remove meta information
+$m =~ s{^---\n.*?\n---\n\n}{}sm;
+
+print marklite($m);
+
