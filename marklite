@@ -2,15 +2,31 @@
 
 use strict;
 use Marklite 'marklite';
+use Template;
 
+my $file = shift;
+if (!(-e $file)) { exit; }
+
+my $F;
+open($F, $file);
 my $m;
 {
     local $/;
-    $m = <>;
+    $m = <$F>;
 }
+close($F);
 
-# remove meta information
-$m =~ s{^---\n.*?\n---\n\n}{}sm;
+$m =~ s{^---\n(.*?)\n---\n\n}{}sm;
+my $meta = $1;
+my %post;
+while ($meta =~ m{^(.*?):\s*(.*?)$}gsm) {
+    $post{$1} = $2;
+}
+$post{content} = marklite($m);
 
-print marklite($m);
+my $tt = Template->new({
+    INCLUDE_PATH => '_templates',
+}) || die $Template::ERROR, "\n";
+
+$tt->process($post{template} . ".tt2", { 'post' => \%post });
 
